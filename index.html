@@ -549,7 +549,12 @@ footer{
     align-items:flex-start;
     gap:32px;
   }
-  .hero-neurons{width:130px;}
+  .hero-neurons{
+    width:130px;
+    /* Sur petit écran, le flottement vertical devient trop visible :
+       on garde juste l'apparition en fondu, sans dérive continue. */
+    animation:fadeUp 1.2s var(--ease-soft) .6s forwards;
+  }
 }
 
 @media (max-width:600px){
@@ -558,6 +563,18 @@ footer{
   .wrap{padding:0 22px;}
   .usages-section{padding-top:0;}
   .final{padding:90px 0 70px;}
+}
+
+/* Téléphones étroits (iPhone SE, petits Android...) : on resserre
+   encore les plus grands titres pour garantir qu'ils tiennent sur
+   une ligne sans déborder ni forcer de défilement horizontal. */
+@media (max-width:400px){
+  .hero-domain{font-size:clamp(38px, 12vw, 168px);}
+  .become-title{font-size:clamp(28px, 8vw, 74px);}
+  .statement-text{font-size:clamp(30px, 10vw, 128px);}
+  .final-domain{font-size:clamp(22px, 7vw, 48px);}
+  .final-title{font-size:clamp(32px, 12vw, 108px);}
+  .become-list li{font-size:clamp(20px, 6vw, 40px);}
 }
 </style>
 </head>
