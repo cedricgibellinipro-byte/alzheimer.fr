@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>alzheimer.fr — Actif numérique rare, disponible à l'acquisition</title>
+<meta name="description" content="alzheimer.fr. La référence française. Un actif numérique rare, disponible immédiatement à l'acquisition pour une organisation sérieuse.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#090909">
+
+<!-- Open Graph -->
+<meta property="og:title" content="alzheimer.fr — La référence française">
+<meta property="og:description" content="Actif numérique rare, disponible immédiatement à l'acquisition.">
+<meta property="og:type" content="website">
+
+<!-- Performance : préconnexion aux polices -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ==================================================================
+   TOKENS
+   Noir profond, blanc cassé, rouge unique en accent, gris de service.
+   Deux familles : Inter (voix principale) / JetBrains Mono (voix
+   technique — labels, chiffres, méta) — pas d'autre ornement.
+   ================================================================== */
+:root{
+  --black:#090909;
+  --black-soft:#0e0e0e;
+  --white:#f5f5f3;
+  --gray-500:#7a7a7a;
+  --gray-700:#4a4a4a;
+  --line:rgba(245,245,243,0.10);
+  --line-soft:rgba(245,245,243,0.06);
+  --red:#e53935;
+  --red-dim:rgba(229,57,53,0.16);
+
+  --font-a:'Inter', -apple-system, sans-serif;
+  --font-m:'JetBrains Mono', monospace;
+
+  --ease:cubic-bezier(.16,.84,.32,1);
+  --ease-soft:cubic-bezier(.22,.61,.36,1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:.001ms !important; transition-duration:.001ms !important; animation-iteration-count:1 !important;}
+}
+
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:var(--font-a);
+  font-weight:400;
+  line-height:1.4;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+::selection{background:var(--red); color:var(--white);}
+
+a{color:inherit; text-decoration:none;}
+button{font-family:inherit; cursor:pointer; background:none; border:none; color:inherit;}
+
+.wrap{
+  width:100%;
+  max-width:1160px;
+  margin:0 auto;
+  padding:0 32px;
+}
+
+/* Grain discret — texture premium sans images */
+.grain{
+  position:fixed; inset:0;
+  z-index:1;
+  pointer-events:none;
+  opacity:0.035;
+  mix-blend-mode:overlay;
+  background-image:
+    radial-gradient(rgba(255,255,255,0.9) 0.6px, transparent 0.6px);
+  background-size:3px 3px;
+}
+
+/* Focus clavier visible */
+a:focus-visible, button:focus-visible{
+  outline:1px solid var(--red);
+  outline-offset:4px;
+}
+
+/* ==================================================================
+   ELEMENTS TYPO PARTAGÉS
+   ================================================================== */
+.eyebrow{
+  font-family:var(--font-m);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--gray-500);
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+}
+.status-dot{
+  width:6px; height:6px;
+  border-radius:50%;
+  background:var(--red);
+  box-shadow:0 0 0 0 rgba(229,57,53,0.5);
+  animation:pulseDot 2.4s ease-in-out infinite;
+  flex-shrink:0;
+}
+@keyframes pulseDot{
+  0%{box-shadow:0 0 0 0 rgba(229,57,53,0.45);}
+  70%{box-shadow:0 0 0 8px rgba(229,57,53,0);}
+  100%{box-shadow:0 0 0 0 rgba(229,57,53,0);}
+}
+
+.btn{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  padding:18px 34px;
+  font-family:var(--font-m);
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--black);
+  background:var(--white);
+  border-radius:2px;
+  overflow:hidden;
+  transition:transform .5s var(--ease), background .4s var(--ease), color .4s var(--ease);
+  isolation:isolate;
+}
+.btn::before{
+  content:'';
+  position:absolute; inset:0;
+  background:var(--red);
+  transform:translateY(101%);
+  transition:transform .45s var(--ease);
+  z-index:-1;
+}
+.btn:hover{color:var(--white); transform:translateY(-2px);}
+.btn:hover::before{transform:translateY(0);}
+.btn:active{transform:translateY(0) scale(0.98);}
+.btn svg{transition:transform .4s var(--ease);}
+.btn:hover svg{transform:translateX(4px);}
+
+/* Reveal générique au scroll */
+.rv{
+  opacity:0;
+  transform:translateY(36px);
+  transition:opacity 1s var(--ease-soft), transform 1s var(--ease-soft);
+}
+.rv.in{opacity:1; transform:translateY(0);}
+.rv-d1{transition-delay:.08s;}
+.rv-d2{transition-delay:.16s;}
+.rv-d3{transition-delay:.24s;}
+.rv-d4{transition-delay:.32s;}
+.rv-d5{transition-delay:.40s;}
+.rv-d6{transition-delay:.48s;}
+
+/* Titres avec léger zoom d'entrée */
+.rv-zoom{
+  opacity:0;
+  transform:scale(1.06);
+  transition:opacity 1.1s var(--ease-soft), transform 1.1s var(--ease-soft);
+}
+.rv-zoom.in{opacity:1; transform:scale(1);}
+
+section{
+  position:relative;
+  padding:100px 0;
+  border-bottom:1px solid var(--line-soft);
+}
+
+/* ==================================================================
+   SECTION 1 — HERO
+   ================================================================== */
+.hero{
+  min-height:100vh;
+  min-height:100svh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:140px 0 40px;
+  border-bottom:1px solid var(--line-soft);
+  overflow:hidden;
+}
+
+/* Lignes verticales de repère — le seul motif graphique de la page */
+.guides{
+  position:absolute; inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+.guide-line{
+  position:absolute;
+  top:0;
+  width:1px;
+  height:0%;
+  background:linear-gradient(to bottom, transparent, var(--line) 20%, var(--line) 80%, transparent);
+  animation:growLine 2.4s var(--ease) forwards;
+}
+.guide-line:nth-child(1){left:12%; animation-delay:.2s;}
+.guide-line:nth-child(2){left:50%; animation-delay:.4s;}
+.guide-line:nth-child(3){left:88%; animation-delay:.6s;}
+@keyframes growLine{ to{ height:100%; } }
+
+/* Lueur ambiante très discrète derrière le nom de domaine */
+.hero-glow{
+  position:absolute;
+  top:50%; left:50%;
+  width:900px; height:900px;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle, rgba(229,57,53,0.06) 0%, transparent 65%);
+  z-index:0;
+  animation:breathe 8s ease-in-out infinite;
+}
+@keyframes breathe{
+  0%,100%{opacity:0.7; transform:translate(-50%,-50%) scale(1);}
+  50%{opacity:1; transform:translate(-50%,-50%) scale(1.08);}
+}
+
+.hero-inner{position:relative; z-index:2;}
+
+.hero-eyebrow{margin-bottom:40px; opacity:0; animation:fadeUp .9s var(--ease-soft) .15s forwards;}
+
+.hero-domain{
+  font-size:clamp(52px, 12vw, 168px);
+  font-weight:700;
+  line-height:0.96;
+  letter-spacing:-0.04em;
+  color:var(--white);
+  margin-bottom:36px;
+  opacity:0;
+  animation:fadeUp 1.1s var(--ease-soft) .3s forwards;
+}
+.accent-red{color:var(--red);}
+
+.claim-row{
+  display:flex;
+  align-items:center;
+  gap:5cm;
+  margin-bottom:44px;
+}
+
+.hero-claim{
+  font-size:clamp(26px, 4vw, 46px);
+  font-weight:300;
+  line-height:1.18;
+  letter-spacing:-0.01em;
+  color:var(--white);
+  margin:0;
+  opacity:0;
+  animation:fadeUp 1.1s var(--ease-soft) .45s forwards;
+}
+.hero-claim span{display:block; color:var(--red);}
+
+/* Illustration : complexe de neurones lumineux, inspiré d'un rendu
+   scientifique — halos dégradés + fines connexions, sans photo.
+   Placée à 5cm du texte, dans le flux normal de la ligne. */
+.hero-neurons{
+  flex-shrink:0;
+  width:clamp(100px, 11vw, 170px);
+  aspect-ratio:1/1;
+  opacity:0;
+  animation:fadeUp 1.2s var(--ease-soft) .6s forwards, floatY 9s ease-in-out infinite 1.6s;
+}
+.hero-neurons svg{width:100%; height:100%; overflow:visible;}
+
+/* Léger tremblement continu, comme une activité électrique —
+   isolé dans un wrapper dédié pour ne pas interférer avec le
+   fondu d'entrée et le flottement du conteneur parent. */
+.neuron-vibrate{
+  width:100%; height:100%;
+  animation:vibrate 0.22s linear infinite;
+}
+@keyframes vibrate{
+  0%{transform:translate(0, 0);}
+  10%{transform:translate(-0.6px, 0.5px);}
+  20%{transform:translate(0.5px, -0.6px);}
+  30%{transform:translate(-0.5px, -0.4px);}
+  40%{transform:translate(0.6px, 0.4px);}
+  50%{transform:translate(-0.4px, 0.6px);}
+  60%{transform:translate(0.4px, -0.5px);}
+  70%{transform:translate(-0.6px, -0.3px);}
+  80%{transform:translate(0.5px, 0.5px);}
+  90%{transform:translate(-0.3px, -0.5px);}
+  100%{transform:translate(0, 0);}
+}
+
+.neuron-g path{
+  animation:neuronDraw 2.4s var(--ease-soft) .8s backwards;
+}
+
+.halo{
+  animation:haloPulse 4.5s ease-in-out infinite;
+  transform-box:fill-box;
+  transform-origin:center;
+}
+.halo:nth-of-type(1){animation-delay:0s;}
+.halo:nth-of-type(2){animation-delay:.6s;}
+.halo:nth-of-type(3){animation-delay:1.2s;}
+.halo:nth-of-type(4){animation-delay:1.8s;}
+.halo:nth-of-type(5){animation-delay:2.4s;}
+.halo:nth-of-type(6){animation-delay:3s;}
+.halo:nth-of-type(7){animation-delay:3.6s;}
+.halo-red{animation-duration:3.6s;}
+
+.spark{
+  animation:twinkle 3.4s ease-in-out infinite;
+}
+.spark:nth-child(1){animation-delay:.2s;}
+.spark:nth-child(2){animation-delay:1s;}
+.spark:nth-child(3){animation-delay:1.6s;}
+.spark:nth-child(4){animation-delay:.6s;}
+.spark:nth-child(5){animation-delay:2.1s;}
+.spark:nth-child(6){animation-delay:1.4s;}
+
+@keyframes floatY{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+}
+@keyframes neuronDraw{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+@keyframes haloPulse{
+  0%,100%{opacity:0.65; transform:scale(1);}
+  50%{opacity:1; transform:scale(1.18);}
+}
+@keyframes twinkle{
+  0%,100%{opacity:0.15;}
+  50%{opacity:0.9;}
+}
+
+.hero-sub{
+  font-family:var(--font-m);
+  font-size:clamp(16px, 1.6vw, 19px);
+  color:var(--gray-500);
+  letter-spacing:0.01em;
+  margin-bottom:0;
+  opacity:0;
+  animation:fadeUp 1.1s var(--ease-soft) .6s forwards;
+}
+
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(22px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.hero-scroll{
+  position:absolute;
+  bottom:48px; left:32px;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-family:var(--font-m);
+  font-size:11px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--gray-700);
+  opacity:0;
+  animation:fadeUp 1s var(--ease-soft) 1.1s forwards;
+}
+.hero-scroll::before{
+  content:'';
+  width:26px; height:1px;
+  background:var(--gray-700);
+}
+
+/* ==================================================================
+   SECTION 2 — CE QUE ALZHEIMER.FR PEUT DEVENIR
+   ================================================================== */
+.become-head{
+  max-width:900px;
+  margin-bottom:56px;
+}
+.become-title{
+  font-size:clamp(34px, 6vw, 74px);
+  font-weight:600;
+  line-height:1.06;
+  letter-spacing:-0.03em;
+}
+.become-title em{
+  font-style:normal;
+  color:var(--gray-500);
+}
+.usages-section{padding-top:40px;}
+
+/* Liste des usages, empilée mot par mot, en grand format et
+   largement espacée. */
+.become-list{
+  list-style:none;
+  max-width:720px;
+  padding-top:32px;
+  border-top:1px solid var(--line-soft);
+  display:flex;
+  flex-direction:column;
+  gap:26px;
+}
+.become-list li{
+  font-size:clamp(24px, 3.4vw, 40px);
+  font-weight:300;
+  line-height:1.2;
+  letter-spacing:-0.01em;
+  color:var(--gray-500);
+}
+
+/* ==================================================================
+   SECTION 3 — GRANDE PHRASE
+   ================================================================== */
+.statement{
+  min-height:44vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:60px 0;
+}
+.statement-text{
+  font-size:clamp(38px, 9vw, 128px);
+  font-weight:700;
+  line-height:1.02;
+  letter-spacing:-0.04em;
+}
+.statement-text span{
+  display:block;
+}
+.statement-text span:last-child{color:var(--gray-500);}
+
+/* ==================================================================
+   SECTION 4 — CTA FINAL
+   ================================================================== */
+.final{
+  text-align:center;
+  padding:120px 0 100px;
+  border-bottom:none;
+}
+.final-domain{
+  font-size:clamp(30px, 5vw, 48px);
+  font-weight:600;
+  letter-spacing:-0.02em;
+  margin-bottom:28px;
+  color:var(--white);
+}
+.final-title{
+  font-size:clamp(44px, 9vw, 108px);
+  font-weight:700;
+  letter-spacing:-0.04em;
+  line-height:1.02;
+  margin-bottom:32px;
+}
+.final-meta{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:28px;
+  flex-wrap:wrap;
+  font-family:var(--font-m);
+  font-size:clamp(15px, 1.7vw, 20px);
+  color:var(--gray-500);
+  letter-spacing:0.03em;
+  margin-bottom:64px;
+}
+.final-meta .sep{color:var(--gray-700);}
+
+/* Formulaire discret révélé au clic du CTA */
+.offer-form{
+  max-width:460px;
+  margin:0 auto;
+  overflow:hidden;
+  max-height:0;
+  opacity:0;
+  transition:max-height .6s var(--ease), opacity .5s var(--ease), margin .6s var(--ease);
+}
+.offer-form.open{
+  max-height:420px;
+  opacity:1;
+  margin-top:48px;
+}
+.offer-form form{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  text-align:left;
+}
+.offer-form input, .offer-form textarea{
+  width:100%;
+  background:transparent;
+  border:none;
+  border-bottom:1px solid var(--line);
+  padding:14px 2px;
+  font-family:var(--font-a);
+  font-size:15px;
+  color:var(--white);
+  transition:border-color .4s var(--ease);
+}
+.offer-form input::placeholder, .offer-form textarea::placeholder{color:var(--gray-700);}
+.offer-form input:focus, .offer-form textarea:focus{outline:none; border-color:var(--red);}
+.offer-form textarea{resize:vertical; min-height:70px;}
+
+.offer-success{
+  display:none;
+  align-items:center;
+  gap:10px;
+  font-family:var(--font-m);
+  font-size:12.5px;
+  color:var(--gray-500);
+  margin-top:18px;
+  letter-spacing:0.03em;
+}
+.offer-success.show{display:flex;}
+.offer-success .status-dot{background:var(--red);}
+
+/* ==================================================================
+   FOOTER
+   ================================================================== */
+footer{
+  padding:40px 0;
+}
+.footer-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:14px;
+  font-family:var(--font-m);
+  font-size:11.5px;
+  color:var(--gray-700);
+  letter-spacing:0.06em;
+}
+
+/* ==================================================================
+   RESPONSIVE
+   ================================================================== */
+@media (max-width:700px){
+  .claim-row{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:32px;
+  }
+  .hero-neurons{width:130px;}
+}
+
+@media (max-width:600px){
+  section{padding:72px 0;}
+  .hero{padding-top:110px;}
+  .wrap{padding:0 22px;}
+  .usages-section{padding-top:0;}
+  .final{padding:90px 0 70px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Texture de grain, purement décorative -->
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ==================================================================
+     SECTION 1 — HERO PLEIN ÉCRAN
+     Aucun menu : la page se lit comme un document, pas une application.
+     ================================================================== -->
+<header class="hero" id="top">
+  <div class="guides" aria-hidden="true">
+    <span class="guide-line"></span>
+    <span class="guide-line"></span>
+    <span class="guide-line"></span>
+  </div>
+  <div class="hero-glow" aria-hidden="true"></div>
+
+  <div class="wrap hero-inner">
+    <p class="hero-eyebrow eyebrow"><span class="status-dot"></span> Nom de domaine premium</p>
+
+    <h1 class="hero-domain">al<span class="accent-red">z</span>heimer<span class="accent-red">.fr</span></h1>
+
+    <div class="claim-row">
+      <p class="hero-claim">
+        La référence<br>
+        <span>française.</span>
+      </p>
+
+      <!-- Illustration abstraite : complexe de neurones lumineux,
+           purement graphique — ni photo, ni pictogramme médical.
+           Placée à 5cm du texte "La référence française". -->
+      <div class="hero-neurons" aria-hidden="true">
+        <div class="neuron-vibrate">
+        <svg viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Halos lumineux : un dégradé blanc pour les corps cellulaires,
+                 un dégradé rouge pour les deux points d'accent -->
+            <radialGradient id="glowWhite" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+              <stop offset="45%" stop-color="#ffffff" stop-opacity="0.22"/>
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="glowRed" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ff5a52" stop-opacity="0.95"/>
+              <stop offset="45%" stop-color="#e53935" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#e53935" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="ambient" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.06"/>
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <!-- Lueur d'ambiance générale -->
+          <circle cx="170" cy="175" r="165" fill="url(#ambient)"/>
+
+          <!-- Réseau de connexions (axones / dendrites) -->
+          <g class="neuron-g" stroke="rgba(245,245,243,0.4)" stroke-width="1" stroke-linecap="round">
+            <path d="M170 180C140 150 120 120 90 90"/>
+            <path d="M170 180C205 135 230 100 260 70"/>
+            <path d="M170 180C215 185 245 188 280 190"/>
+            <path d="M170 180C190 220 195 245 200 270"/>
+            <path d="M170 180C125 195 95 205 70 220"/>
+            <path d="M170 180C165 120 155 90 140 60"/>
+            <path d="M90 90C115 75 128 68 140 60"/>
+            <path d="M260 70C270 100 275 130 280 190"/>
+            <path d="M200 270C160 250 110 235 70 220"/>
+            <path d="M70 220C55 195 50 165 60 135"/>
+            <path d="M280 190C255 220 230 245 200 270"/>
+          </g>
+
+          <!-- Terminaisons fines (dendrites secondaires) -->
+          <g class="neuron-g" stroke="rgba(245,245,243,0.28)" stroke-width="0.8" stroke-linecap="round">
+            <path d="M90 90C78 78 70 72 58 66"/>
+            <path d="M90 90C82 100 76 106 64 110"/>
+            <path d="M260 70C272 62 280 58 292 54"/>
+            <path d="M280 190C295 182 305 178 316 176"/>
+            <path d="M200 270C208 285 212 296 218 308"/>
+            <path d="M70 220C60 232 54 240 44 250"/>
+          </g>
+
+          <!-- Particules en suspension, comme des étincelles -->
+          <g class="particles" fill="#ffffff">
+            <circle class="spark" cx="120" cy="55" r="1.3"/>
+            <circle class="spark" cx="300" cy="130" r="1.1"/>
+            <circle class="spark" cx="235" cy="230" r="1.4"/>
+            <circle class="spark" cx="40" cy="180" r="1.1"/>
+            <circle class="spark" cx="150" cy="300" r="1.2"/>
+            <circle class="spark" cx="245" cy="40" r="1"/>
+          </g>
+
+          <!-- Corps cellulaires : halo + noyau -->
+          <g class="soma-group">
+            <circle class="halo" cx="170" cy="180" r="24" fill="url(#glowWhite)"/>
+            <circle class="soma" cx="170" cy="180" r="7.5" fill="var(--white)"/>
+
+            <circle class="halo" cx="90" cy="90" r="16" fill="url(#glowWhite)"/>
+            <circle class="soma" cx="90" cy="90" r="4.5" fill="var(--white)"/>
+
+            <circle class="halo halo-red" cx="260" cy="70" r="18" fill="url(#glowRed)"/>
+            <circle class="soma" cx="260" cy="70" r="5" fill="var(--red)"/>
+
+            <circle class="halo" cx="280" cy="190" r="14" fill="url(#glowWhite)"/>
+            <circle class="soma" cx="280" cy="190" r="4" fill="var(--white)"/>
+
+            <circle class="halo halo-red" cx="200" cy="270" r="17" fill="url(#glowRed)"/>
+            <circle class="soma" cx="200" cy="270" r="4.6" fill="var(--red)"/>
+
+            <circle class="halo" cx="70" cy="220" r="14" fill="url(#glowWhite)"/>
+            <circle class="soma" cx="70" cy="220" r="4" fill="var(--white)"/>
+
+            <circle class="halo" cx="140" cy="60" r="12" fill="url(#glowWhite)"/>
+            <circle class="soma" cx="140" cy="60" r="3.4" fill="var(--white)"/>
+          </g>
+        </svg>
+        </div>
+      </div>
+    </div>
+
+    <p class="hero-sub">Actif numérique rare — disponible immédiatement à l'acquisition.</p>
+  </div>
+
+  <span class="hero-scroll">Défiler</span>
+</header>
+
+<main>
+
+  <!-- ==================================================================
+       SECTION 2 — CE QUE ALZHEIMER.FR PEUT DEVENIR
+       ================================================================== -->
+  <section class="usages-section" aria-label="Usages possibles">
+    <div class="wrap">
+      <div class="become-head">
+        <h2 class="become-title rv-zoom">
+          Ce que<br>
+          al<span class="accent-red">z</span>heimer<span class="accent-red">.fr</span><br>
+          <em>peut devenir</em>
+        </h2>
+      </div>
+
+      <ul class="become-list rv rv-d1">
+        <li>Fondation</li>
+        <li>Institut de recherche</li>
+        <li>Plateforme d'information</li>
+        <li>Startup MedTech</li>
+        <li>Application d'accompagnement</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ==================================================================
+       SECTION 3 — GRANDE PHRASE
+       ================================================================== -->
+  <section class="statement" aria-label="Positionnement">
+    <div class="wrap">
+      <p class="statement-text rv-zoom">
+        <span>Le bon nom.</span>
+        <span>Pour le bon projet.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================================================================
+       SECTION 4 — APPEL À L'ACTION FINAL
+       ================================================================== -->
+  <section class="final" id="offer" aria-label="Contact">
+    <div class="wrap">
+      <p class="final-domain rv">al<span class="accent-red">z</span>heimer<span class="accent-red">.fr</span></p>
+      <h2 class="final-title rv-zoom">Disponible.</h2>
+
+      <div class="final-meta rv rv-d1">
+        <span>Transfert sécurisé</span>
+        <span class="sep">/</span>
+        <span>Réponse rapide</span>
+      </div>
+
+      <button type="button" class="btn rv rv-d2" data-open-offer>
+        Faire une offre
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <div class="offer-form" id="offerForm">
+        <form id="contactForm">
+          <input type="text" name="name" placeholder="Nom et organisation" required>
+          <input type="email" name="email" placeholder="Adresse e-mail" required>
+          <textarea name="message" placeholder="Votre offre ou votre message"></textarea>
+          <button type="submit" class="btn" style="margin-top:10px;">
+            Envoyer
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+        <p class="offer-success" id="offerSuccess"><span class="status-dot"></span> Votre demande a été transmise.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ==================================================================
+     FOOTER MINIMAL
+     ================================================================== -->
+<footer>
+  <div class="wrap footer-inner">
+    <span>alzheimer.fr — Actif numérique</span>
+    <span>© 2026</span>
+  </div>
+</footer>
+
+<script>
+/* ==================================================================
+   1. REVEAL AU SCROLL
+   Un seul observateur pour tous les éléments .rv / .rv-zoom :
+   fade-in + translation, et léger zoom pour les titres.
+   ================================================================== */
+const revealTargets = document.querySelectorAll('.rv, .rv-zoom');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting){
+      entry.target.classList.add('in');
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.18, rootMargin: '0px 0px -80px 0px' });
+
+revealTargets.forEach(el => io.observe(el));
+
+/* ==================================================================
+   2. PARALLAXE TRÈS SUBTILE SUR LE HERO
+   Le bloc de texte se déplace légèrement plus lentement que le
+   scroll, la lueur ambiante suit avec un décalage doux.
+   ================================================================== */
+const heroInner = document.querySelector('.hero-inner');
+const heroGlow = document.querySelector('.hero-glow');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (!reduceMotion){
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking){
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        const vh = window.innerHeight;
+        if (y < vh){
+          heroInner.style.transform = `translateY(${y * 0.12}px)`;
+          heroInner.style.opacity = String(Math.max(1 - y / (vh * 0.9), 0));
+          heroGlow.style.transform = `translate(-50%, calc(-50% + ${y * 0.05}px))`;
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive:true });
+}
+
+/* ==================================================================
+   3. RÉVÉLATION DU FORMULAIRE D'OFFRE
+   Le bouton "Faire une offre" de la section finale déplie un
+   formulaire minimal, sans jamais quitter la page.
+   ================================================================== */
+const offerForm = document.getElementById('offerForm');
+document.querySelectorAll('[data-open-offer]').forEach(trigger => {
+  trigger.addEventListener('click', (e) => {
+    // Laisse le lien ancre défiler naturellement, puis ouvre le panneau
+    setTimeout(() => offerForm.classList.add('open'), trigger.tagName === 'A' ? 350 : 0);
+  });
+});
+
+/* ==================================================================
+   4. SOUMISSION DU FORMULAIRE (simulation locale)
+   ================================================================== */
+const contactForm = document.getElementById('contactForm');
+const offerSuccess = document.getElementById('offerSuccess');
+
+contactForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  offerSuccess.classList.add('show');
+  contactForm.style.opacity = '0.4';
+  contactForm.style.pointerEvents = 'none';
+});
+</script>
+
+</body>
+</html>
