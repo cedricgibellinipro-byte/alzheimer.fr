@@ -555,6 +555,7 @@ footer{
        on garde juste l'apparition en fondu, sans dérive continue. */
     animation:fadeUp 1.2s var(--ease-soft) .6s forwards;
   }
+  .neuron-vibrate{animation:none;}
 }
 
 @media (max-width:600px){
@@ -809,12 +810,15 @@ revealTargets.forEach(el => io.observe(el));
    2. PARALLAXE TRÈS SUBTILE SUR LE HERO
    Le bloc de texte se déplace légèrement plus lentement que le
    scroll, la lueur ambiante suit avec un décalage doux.
+   Désactivé sur mobile : sur petit écran, ce type d'effet est plus
+   souvent perçu comme un bug ("ça bouge") qu'un raffinement.
    ================================================================== */
 const heroInner = document.querySelector('.hero-inner');
 const heroGlow = document.querySelector('.hero-glow');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isMobile = window.matchMedia('(max-width: 700px)').matches;
 
-if (!reduceMotion){
+if (!reduceMotion && !isMobile){
   let ticking = false;
   window.addEventListener('scroll', () => {
     if (!ticking){
